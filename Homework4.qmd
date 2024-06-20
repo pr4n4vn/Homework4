@@ -1,0 +1,20 @@
+---
+title: "Homework4 by Pranav Nair, ST558"
+format: html
+editor: visual
+---
+
+##Task 1
+
+1)  What is the purpose of the lapply() function?
+2)
+3)
+4)
+
+
+##Task 2
+
+```{r}
+
+```
+
