@@ -15,6 +15,31 @@ editor: visual
 ##Task 2
 
 ```{r}
+library(dplyr)
+library(tidyr)
+
+#1 create an RMSE function
+getRMSE <- function(responses, predictions) {
+  
+  yminusyhat <- (responses - predictions)^2
+
+  meanyminusyhat <- mean(yminusyhat)
+  
+  rmse <- sqrt(meanyminusyhat)
+  
+  return(rmse)
+  
+}
+
+#2 Run following code to create response values and predictions.
+
+set.seed(10)
+n <- 100
+x <- runif(n)
+resp <- 3 + 10*x + rnorm(n)
+pred <- predict(lm(resp ~ x), data.frame(x))
+
+getRMSE(resp,pred)
 
 ```
 
