@@ -19,15 +19,16 @@ library(dplyr)
 library(tidyr)
 
 #1 create an RMSE function
-getRMSE <- function(responses, predictions) {
+getRMSE <- function(responses, predictions, ...) {
   
-  yminusyhat <- (responses - predictions)^2
-
-  meanyminusyhat <- mean(yminusyhat)
   
-  rmse <- sqrt(meanyminusyhat)
+  sqrt(mean((responses-predictions)^2, ...))
+  # yminusyhat <- (responses - predictions)^2
+  # 
+  # meanyminusyhat <- mean(yminusyhat)
+  # 
+  # rmse <- sqrt(meanyminusyhat)
   
-  return(rmse)
   
 }
 
@@ -38,8 +39,55 @@ n <- 100
 x <- runif(n)
 resp <- 3 + 10*x + rnorm(n)
 pred <- predict(lm(resp ~ x), data.frame(x))
+resp
 
-getRMSE(resp,pred)
+#now to replace two numbers in the numerical vector with "na" values.
 
+respNA <- resp
+
+NA_stuff <- sample(1:n, 2)
+respNA[NA_stuff] <- NA_real_
+
+RMSE_regular <- getRMSE(resp, pred)
+print(RMSE_regular)
+
+RMSE_NA <- getRMSE(respNA, pred)
+print(RMSE_NA)
+
+respNA
+
+RMSE_NA_remove <- getRMSE(respNA, pred, na.rm = TRUE)
+print(RMSE_NA_remove)
+
+
+#3 MAE function
+getMAE <- function(responses, predictions, ...) {
+  (1/n)*(mean(abs(responses - predictions),...))
+}
+
+#4 Run the following code to create some response values and predictions.
+set.seed(10)
+n <- 100
+x <- runif(n)
+resp <- 3 + 10*x + rnorm(n)
+pred <- predict(lm(resp ~ x), data.frame(x))
+
+getMAE(resp, pred)
+
+
+respNA <- resp
+NA_stuff <- sample(1:n, 2)
+respNA[NA_stuff] <- NA_real_
+
+
+MAE_regular <- getMAE(resp, pred)
+print(MAE_regular)
+MAE_NA <- getMAE(respNA, pred)
+print(MAE_NA)
+MAE_NA_ignore <- getMAE(respNA, pred, na.rm = TRUE)
+print(MAE_NA_ignore)
+
+
+#5 Create a wrapper function that can be used to get either or both metrics with one single function call. 
 ```
 
