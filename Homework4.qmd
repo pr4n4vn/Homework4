@@ -89,5 +89,24 @@ print(MAE_NA_ignore)
 
 
 #5 Create a wrapper function that can be used to get either or both metrics with one single function call. 
+
+wrapper_function <- function(responses, predictions, ...) {
+  rmse <- getRMSE()
+  
+  mae <- getMAE()
+  
+  if(!(is.vector(responses) && 
+       is.atomic(responses) && 
+       is.numeric(responses) &&
+       is.vector(predictions) &&
+       is.atomic(predictions) &&
+       is.numeric(predictions))) {
+    message("Error!")
+    return(NULL)
+  }
+  
+}
+
+wrapper_function(resp, pred, na.rm = TRUE)
 ```
 
