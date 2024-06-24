@@ -161,7 +161,21 @@ incorrect_result <- wrapper_function(incorrect_data, pred)
 
 ##Task 3 - Querying API and Tidy-style function
 
-```{r}
+API Key - 3d1f81a3ce154208b6381c8654231a99
 
+```{r}
+library(httr)
+library(tidycensus)
+
+url_api <- "https://newsapi.org/v2/everything?q=tesla&from=2024-05-24&sortBy=publishedAt&apiKey=3d1f81a3ce154208b6381c8654231a99"
+
+id_info <- GET(url_api)
+str(id_info, max.level = 1)
+
+load_data_api <- function(url_api, date, api_key) {
+  url_api <- paste0("https://newsapi.org/v2/everything?q=tesla&from=2024-05-24&sortBy=publishedAt&apiKey=3d1f81a3ce154208b6381c8654231a99")
+  
+  
+}
 ```
 
