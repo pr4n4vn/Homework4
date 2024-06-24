@@ -124,5 +124,44 @@ n <- 100
 x <- runif(n)
 resp <- 3 + 10*x + rnorm(n)
 pred <- predict(lm(resp ~ x), data.frame(x))
+
+
+#call wrapper function for RMSE metric only
+RMSE_result <- wrapper_function(resp, pred, metrics = "RMSE")
+print(RMSE_result)
+
+#call wrapper function for MAE metric only
+MAE_result <- wrapper_function(resp, pred, metrics = "MAE")
+print(MAE_result)
+
+#call wrapper function for both metrics
+both_result <- wrapper_function(resp, pred)
+print(both_result)
+
+
+#replace two of the response values with missing values (NA_real_)
+respNA <- resp
+
+NA_stuff <- sample(1:n, 2)
+respNA[NA_stuff] <- NA_real_
+
+NA_result <- wrapper_function(respNA, pred)
+print(NA_result)
+
+
+#Test the function by passing incorrect data, in this case it will be a character vector
+
+incorrect_data <- c("one", "two", "three")
+
+incorrect_result <- wrapper_function(incorrect_data, pred)
+
+
+  
+```
+
+##Task 3 - Querying API and Tidy-style function
+
+```{r}
+
 ```
 
