@@ -6,10 +6,16 @@ editor: visual
 
 ##Task 1
 
-1)  What is the purpose of the lapply() function?
-2)
-3)
-4)
+1)  The purpose of the lapply function is to use the apply() function to a list.
+2)  The code is below:
+
+```{r}
+#list(X = my_list, FUN = function(numeric_matrix) cor(numeric_matrix, method = "kendall"))
+```
+
+3)  The two advantages are that it's more consistent and there's some helper functions.
+4)  A side-effect function is basically a function that when run, it could have some additional results/issues.
+5)  This is because the variable name only exists within that function, so you can name the variable anything as long as it is within that function alone.
 
 
 ##Task 2
@@ -161,13 +167,15 @@ incorrect_result <- wrapper_function(incorrect_data, pred)
 
 ##Task 3 - Querying API and Tidy-style function
 
-
+Just a note before I run this code... I am still unfamiliar with what to do with the APIs... I tried my beset here below but I would like to get some more clarity on that.
 
 ```{r}
 library(httr)
 library(tidycensus)
 library(jsonlite)
 library(dplyr)
+
+
 #1 - run the API
 url_api <- "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=3d1f81a3ce154208b6381c8654231a99"
 
