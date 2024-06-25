@@ -27,19 +27,11 @@ library(tidyr)
 #1 create an RMSE function
 getRMSE <- function(responses, predictions, ...) {
   
-  
   sqrt(mean((responses-predictions)^2, ...))
-  # yminusyhat <- (responses - predictions)^2
-  # 
-  # meanyminusyhat <- mean(yminusyhat)
-  # 
-  # rmse <- sqrt(meanyminusyhat)
-  
   
 }
 
 #2 Run following code to create response values and predictions.
-
 set.seed(10)
 n <- 100
 x <- runif(n)
@@ -48,7 +40,6 @@ pred <- predict(lm(resp ~ x), data.frame(x))
 resp
 
 #now to replace two numbers in the numerical vector with "na" values.
-
 respNA <- resp
 
 NA_stuff <- sample(1:n, 2)
@@ -95,7 +86,6 @@ print(MAE_NA_ignore)
 
 
 #5 Create a wrapper function that can be used to get either or both metrics with one single function call. 
-
 wrapper_function <- function(responses, predictions, metrics = c("RMSE", "MAE"), ...) {
   
   if(!(is.vector(responses) && 
@@ -156,7 +146,6 @@ print(NA_result)
 
 
 #Test the function by passing incorrect data, in this case it will be a character vector
-
 incorrect_data <- c("one", "two", "three")
 
 incorrect_result <- wrapper_function(incorrect_data, pred)
@@ -182,6 +171,7 @@ url_api <- "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=3d1f8
 id_info <- GET(url_api)
 str(id_info, max.level = 1)
 id_info
+
 #2 - parse the data
 parsed <- fromJSON(rawToChar(id_info$content))
 parsed
