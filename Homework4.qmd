@@ -161,21 +161,51 @@ incorrect_result <- wrapper_function(incorrect_data, pred)
 
 ##Task 3 - Querying API and Tidy-style function
 
-API Key - 3d1f81a3ce154208b6381c8654231a99
+
 
 ```{r}
 library(httr)
 library(tidycensus)
-
-url_api <- "https://newsapi.org/v2/everything?q=tesla&from=2024-05-24&sortBy=publishedAt&apiKey=3d1f81a3ce154208b6381c8654231a99"
+library(jsonlite)
+library(dplyr)
+#1 - run the API
+url_api <- "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=3d1f81a3ce154208b6381c8654231a99"
 
 id_info <- GET(url_api)
 str(id_info, max.level = 1)
-
-load_data_api <- function(url_api, date, api_key) {
-  url_api <- paste0("https://newsapi.org/v2/everything?q=tesla&from=2024-05-24&sortBy=publishedAt&apiKey=3d1f81a3ce154208b6381c8654231a99")
+id_info
+#2 - parse the data
+parsed <- fromJSON(rawToChar(id_info$content))
+parsed
+tbl_info <- as_tibble(parsed$articles)
+tbl_info
   
+
+#3 - create a function that allows the user to query this API.
+api_key <- source("api_key.R")
+api_key
+load_data_api <- function(query, date, sorting, api_key) {
+  url_func <- paste0("https://newsapi.org/v2/everything?q=", query, "&from=", date, "&sortBy=", sorting, "&apiKey=", api_key) 
+  
+  result <- GET(url_api)
+  
+  content <- content(result, "text")
+  
+  parsed_data <- fromJSON(content)
+  
+  article <- as.data.frame(parsed_data$articles)
+  
+  return(article)
   
 }
+
+
+
+  
+article <- load_data_api("tesla", "2024-05-24", "publishedAt", api_key)
+article
+
+article2 <- load_data_api("tesla", "2024-06-22", "publishedAt", api_key)
+article2
 ```
 
